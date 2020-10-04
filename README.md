@@ -11,10 +11,11 @@ IsCNPJValid() | Valida se a string é um CNPJ válido. Retorna um valor booleano
 FormatCNPJ() | Retorna uma string formato no estilo de CNPJ. Ex: xx.xxx.xxx/xxxx-xx
 
 ## COMO USAR
-Para usar os métodos de extensão basta adicionar a referência do assembly 
+Para usar os métodos de extensão basta adicionar a referência do assembly (*Validations.Data*) 
 ao seu projeto. Após adição os métodos de validação estão disponíveis para qualquer objeto do tipo string.
 
-~~~IsCNPJValid()
+- IsCNPJValid()
+``` 
 using Validations.Data;
 
 namespace Exemple
@@ -28,9 +29,9 @@ namespace Exemple
         }
     }
 }
-~~~
-
-~~~FormatCNPJ()
+```
+- FormatCNPJ()
+```
 using Validations.Data;
 
 namespace Exemple
@@ -44,4 +45,4 @@ namespace Exemple
         }
     }
 }
-~~~
+```
