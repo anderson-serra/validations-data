@@ -1,9 +1,7 @@
-.vs/
+src/.vs/
 **/*/obj/
 **/*/bin/
 
 # Code Coverage Files
 coverage.cobertura.xml
 report/
-
-
