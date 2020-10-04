@@ -65,9 +65,6 @@ namespace Validations.Data
 
         private static string RemovePointsDashesBarsAndSpaces(string text)
         {
-            if (string.IsNullOrWhiteSpace(text))
-                return string.Empty;
-
             var newText = text.Replace(".", "")
                               .Replace("/", "")
                               .Replace("-", "");
