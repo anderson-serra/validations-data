@@ -9,7 +9,7 @@ namespace Validations.Data.Tests
         [TestCase(null, false)]
         [TestCase("", false)]
         [TestCase(" ", false)]
-        public void MustReturnFalseWhenWnteringAnEmptyOrNullString(string cnpj, bool expected)
+        public void IsCNPJValid_MustReturnFalseWhenWnteringAnEmptyOrNullString(string cnpj, bool expected)
         {
             var sut = cnpj.IsCNPJValid();
             sut.Should().Be(expected);
@@ -19,7 +19,7 @@ namespace Validations.Data.Tests
         [TestCase("000.000.000/0000-00", false)]
         [TestCase("0000000000000", false)]
         [TestCase("000000000000000", false)]
-        public void MustEnsureThatTheSizeIsNotDifferentFromFourteen(string cnpj, bool expected)
+        public void IsCNPJValid_MustEnsureThatTheSizeIsNotDifferentFromFourteen(string cnpj, bool expected)
         {
             var sut = cnpj.IsCNPJValid();
             sut.Should().Be(expected);
@@ -35,7 +35,7 @@ namespace Validations.Data.Tests
         [TestCase("77.777.777/7777-77", false)]
         [TestCase("88.888.888/8888-88", false)]
         [TestCase("99.999.999/9999-99", false)]
-        public void MustReturnFalseWhenItIsCnpjWithRepeatedNumbers(string cnpj, bool expected)
+        public void IsCNPJValid_MustReturnFalseWhenItIsCnpjWithRepeatedNumbers(string cnpj, bool expected)
         {
             var sut = cnpj.IsCNPJValid();
             sut.Should().Be(expected);
@@ -45,7 +45,7 @@ namespace Validations.Data.Tests
         [TestCase("aa.aaa.aaa/aaaa-bb", false)]
         [TestCase("2c.120.900/0001-ab", false)]
         [TestCase("aaaaaa", false)]
-        public void MustReturnFalseWhenTheInformedValueHasCharactersOtherThanNumbers(string cnpj, bool expected)
+        public void IsCNPJValid_MustEnsureThatOnlyStringsThatCanBeConvertedToNumbersCanProceed(string cnpj, bool expected)
         {
             var sut = cnpj.IsCNPJValid();
             sut.Should().Be(expected);
@@ -57,9 +57,35 @@ namespace Validations.Data.Tests
         [TestCase("12.655.864/0001-51", false)]
         [TestCase("12655864000151", false)]
         [TestCase("88263783000147", true)]
-        public void MustValidateCNPJReturningTrueOrFalse(string cnpj, bool expected)
+        public void IsCNPJValid_MustValidateCNPJReturningTrueOrFalse(string cnpj, bool expected)
         {
             var sut = cnpj.IsCNPJValid();
+            sut.Should().Be(expected);
+        }
+
+        [TestCase("", "")]
+        [TestCase(" ", "")]
+        [TestCase(null, "")]
+        public void FormatCNPJ_EmptyStringMustBeReturnedWhenTheValueIsNullBlankOrEmpty(string cnpj, string expected)
+        {
+            var sut = cnpj.FormatCNPJ();
+            sut.Should().Be(expected);
+        }
+
+        [TestCase("11.222.333/0001-81", "11.222.333/0001-81")]
+        [TestCase("112223330001", "112223330001")]
+        [TestCase("1178222333000181", "1178222333000181")]
+        public void FormatCNPJ_IfTheSizeOfTheEnteredValueIsDifferentFromFourteenReturnTheValueItself(string cnpj, string expected)
+        {
+            var sut = cnpj.FormatCNPJ();
+            sut.Should().Be(expected);
+        }
+
+        [TestCase("11222333000181", "11.222.333/0001-81")]
+        [TestCase("88263783000147", "88.263.783/0001-47")]
+        public void FormatCNPJ_MustCorrectlyFormatACNPJContainingFourteenCharacters(string cnpj, string expected)
+        {
+            var sut = cnpj.FormatCNPJ();
             sut.Should().Be(expected);
         }
     }

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Version>0.0.1.0</Version>
+    <Authors>Anderson Serra</Authors>
+    <Company />
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/anderson-serra/validations-data</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <NeutralLanguage>pt-BR</NeutralLanguage>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+</Project>

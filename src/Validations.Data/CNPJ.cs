@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* 
+ * url: https://github.com/anderson-serra/validations-data 
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using static System.Convert;
@@ -7,6 +11,12 @@ namespace Validations.Data
 {
     public static class CNPJ
     {
+        /// <summary>
+        /// Validate whether a CNPJ is valid or not
+        /// </summary>
+        /// <param name="cnpj">xx.xxx.xxx/xxxx-xx or xxxxxxxxxxxxxx</param>
+        /// <typeparam name="string"></typeparam>
+        /// <returns>true or false</returns>
         public static bool IsCNPJValid(this string cnpj)
         {
             if (string.IsNullOrWhiteSpace(cnpj))
@@ -50,6 +60,23 @@ namespace Validations.Data
             var verifyingDigit = $"{firstCheckDigit}{secondDigitChecker}";
 
             return cnpj.EndsWith(verifyingDigit);
+        }
+
+        /// <summary>
+        /// Formats a CNPJ by adding points, slashes and dashes. This method does not check if the CNPJ is a valid CNPJ, it only formats.
+        /// </summary>
+        /// <param name="cnpj">xx.xxx.xxx/xxxx-xx or xxxxxxxxxxxxxx</param>
+        /// <typeparam name="string"></typeparam>
+        /// <returns>xx.xxx.xxx/xxxx-xx</returns>
+        public static string FormatCNPJ(this string cnpj)
+        {
+            if (string.IsNullOrWhiteSpace(cnpj))
+                return string.Empty;
+
+            if (cnpj.Length != 14)
+                return cnpj;
+
+            return $"{cnpj.Substring(0, 2)}.{cnpj.Substring(2, 3)}.{cnpj.Substring(5, 3)}/{cnpj.Substring(8, 4)}-{cnpj.Substring(12)}";
         }
 
         private static string[] RepeatedNumbers()
