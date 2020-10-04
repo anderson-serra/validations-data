@@ -9,6 +9,7 @@ Método        | Descrição
 ---------     | ------
 IsCNPJValid() | Valida se a string é um CNPJ válido. Retorna um valor booleano(true ou false)
 FormatCNPJ() | Retorna uma string formato no estilo de CNPJ. Ex: xx.xxx.xxx/xxxx-xx
+IsCPFValid() | Valida se a string é um CPF válido. Retorna um valor booleano(true ou false)
 
 ## COMO USAR
 Para usar os métodos de extensão basta adicionar a referência do assembly (*Validations.Data*) 
@@ -42,6 +43,22 @@ namespace Exemple
         {
             var formattedCnpj = cnpj.FormatCNPJ(); // returns xx.xxx.xxx/xxxx-xx
             return formattedCnpj;
+        }
+    }
+}
+```
+- IsCPFValid()
+```
+using Validations.Data;
+
+namespace Exemple
+{
+    public class MyExemple
+    {
+        public bool ValidateCPF(string cpf)
+        {
+            var isValid = cpf.IsCPFValid(); // returns true or false
+            return isValid;
         }
     }
 }
