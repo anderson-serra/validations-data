@@ -59,5 +59,30 @@ namespace Validations.Data.Tests
             var sut = cpf.IsCPFValid();
             sut.Should().Be(expected);
         }
+
+        [TestCase("", "")]
+        [TestCase(" ", "")]
+        [TestCase(null, "")]
+        public void FormatCPF_EmptyStringMustBeReturnedWhenTheValueIsNullBlankOrEmpty(string cpf, string expected)
+        {
+            var sut = cpf.FormatCPF();
+            sut.Should().Be(expected);
+        }
+
+        [TestCase("954.965.932-888", "954.965.932-888")]
+        [TestCase("954.965.932-8", "954.965.932-8")]
+        public void FormatCPF_IfTheSizeOfTheEnteredValueIsDifferentFromFourteenReturnTheValueItself(string cpf, string expected)
+        {
+            var sut = cpf.FormatCPF();
+            sut.Should().Be(expected);
+        }
+
+        [TestCase("03080282019", "030.802.820-19")]
+        [TestCase("55972274086", "559.722.740-86")]
+        public void FormatCPF_MustCorrectlyFormatACNPJContainingFourteenCharacters(string cpf, string expected)
+        {
+            var sut = cpf.FormatCPF();
+            sut.Should().Be(expected);
+        }
     }
 }

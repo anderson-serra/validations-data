@@ -8,6 +8,12 @@ namespace Validations.Data
 {
     public static class CPF
     {
+        /// <summary>
+        /// Validate whether a CPF is valid or not
+        /// </summary>
+        /// <param name="cpf">xxx.xxx.xxx-xx or xxxxxxxxxxx</param>
+        /// <typeparam name="string"></typeparam>
+        /// <returns>true or false</returns>
         public static bool IsCPFValid(this string cpf)
         {
             cpf = CharacterChanges.RemovePointsDashesBarsAndSpaces(cpf);
@@ -46,6 +52,23 @@ namespace Validations.Data
             var verifyingDigit = $"{firstCheckDigit}{secondDigitChecker}";
 
             return cpf.EndsWith(verifyingDigit);
+        }
+
+        /// <summary>
+        /// Formats a CPF by adding points and dashes. This method does not check if the CPF is a valid CPF, it only formats.
+        /// </summary>
+        /// <param name="cpf">xxx.xxx.xxx-xx or xxxxxxxxxxx</param>
+        /// <typeparam name="cpf"></typeparam>
+        /// <returns>xxx.xxx.xxx-xx</returns>
+        public static string FormatCPF(this string cpf)
+        {
+            if (string.IsNullOrWhiteSpace(cpf))
+                return string.Empty;
+
+            if (cpf.Length != 11)
+                return cpf;
+
+            return $"{cpf.Substring(0, 3)}.{cpf.Substring(3, 3)}.{cpf.Substring(6, 3)}-{cpf.Substring(9, 2)}";
         }
 
         private static string[] CpfListWithRepeatedNumbers()
