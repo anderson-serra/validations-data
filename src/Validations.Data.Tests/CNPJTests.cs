@@ -52,9 +52,7 @@ namespace Validations.Data.Tests
         }
 
         [TestCase("11.222.333/0001-81", true)]
-        [TestCase("88.263.783/0001-47", true)]
         [TestCase("95.845.695/0002-23", false)]
-        [TestCase("12.655.864/0001-51", false)]
         [TestCase("12655864000151", false)]
         [TestCase("88263783000147", true)]
         public void IsCNPJValid_MustValidateCNPJReturningTrueOrFalse(string cnpj, bool expected)

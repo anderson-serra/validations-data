@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Validations.Data.Common;
 using static System.Convert;
 
 namespace Validations.Data
@@ -19,43 +20,37 @@ namespace Validations.Data
         /// <returns>true or false</returns>
         public static bool IsCNPJValid(this string cnpj)
         {
-            if (string.IsNullOrWhiteSpace(cnpj))
-                return false;
-
-            cnpj = RemovePointsDashesBarsAndSpaces(cnpj);
+            cnpj = CharacterChanges.RemovePointsDashesBarsAndSpaces(cnpj);
             if (cnpj.Length != 14)
                 return false;
 
-            long numberConverter;
-            var isNumberOnly = long.TryParse(cnpj, out numberConverter);
+            var isNumberOnly = long.TryParse(cnpj, out _);
             if (!isNumberOnly)
                 return false;
 
-            var repeatedNumbersList = RepeatedNumbers();
-            var hasRepeatedNumbers = repeatedNumbersList.Contains(cnpj);
-            if (hasRepeatedNumbers)
+            if (CnpjListWithRepeatedNumbers().Contains(cnpj))
                 return false;
 
-            var cnpjSemDigito = cnpj.Substring(0, 12);
+            var cnpjWithoutDigit = cnpj.Substring(0, 12);
 
             int[] multiplierNumbers01 = { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplierNumbers02 = { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
 
-            int sum01 = 0;
+            var sum01 = 0;
             for (int i = 0; i < multiplierNumbers01.Length; i += 1)
-                sum01 += ToInt32(cnpjSemDigito[i].ToString()) * multiplierNumbers01[i];
+                sum01 += ToInt32(cnpjWithoutDigit[i].ToString()) * multiplierNumbers01[i];
 
             var restfDivision01 = sum01 % 11;
-            int firstCheckDigit = restfDivision01 < 2 ? 0 : 11 - restfDivision01;
+            var firstCheckDigit = restfDivision01 < 2 ? 0 : 11 - restfDivision01;
 
-            cnpjSemDigito = $"{cnpjSemDigito}{firstCheckDigit}";
+            cnpjWithoutDigit += firstCheckDigit;
 
-            int sum02 = 0;
+            var sum02 = 0;
             for (int i = 0; i < multiplierNumbers02.Length; i += 1)
-                sum02 += ToInt32(cnpjSemDigito[i].ToString()) * multiplierNumbers02[i];
+                sum02 += ToInt32(cnpjWithoutDigit[i].ToString()) * multiplierNumbers02[i];
 
             var restfDivision02 = sum02 % 11;
-            int secondDigitChecker = restfDivision02 < 2 ? 0 : 11 - restfDivision02;
+            var secondDigitChecker = restfDivision02 < 2 ? 0 : 11 - restfDivision02;
 
             var verifyingDigit = $"{firstCheckDigit}{secondDigitChecker}";
 
@@ -79,7 +74,7 @@ namespace Validations.Data
             return $"{cnpj.Substring(0, 2)}.{cnpj.Substring(2, 3)}.{cnpj.Substring(5, 3)}/{cnpj.Substring(8, 4)}-{cnpj.Substring(12)}";
         }
 
-        private static string[] RepeatedNumbers()
+        private static string[] CnpjListWithRepeatedNumbers()
         {
             var numbers = new List<string>();
 
@@ -88,15 +83,6 @@ namespace Validations.Data
                 numbers.Add(baseString.Replace("x", $"{i}"));
 
             return numbers.ToArray();
-        }
-
-        private static string RemovePointsDashesBarsAndSpaces(string text)
-        {
-            var newText = text.Replace(".", "")
-                              .Replace("/", "")
-                              .Replace("-", "");
-
-            return newText.Trim();
         }
     }
 }
