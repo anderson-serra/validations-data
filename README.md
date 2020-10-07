@@ -3,6 +3,7 @@ Métodos de extensão para a classe string. Provê um conjunto de validações e
 ## REQUISITOS
 * Dotnet Core 3.1 or higher 
 * Visual Studio 2019
+* C# 6 ou superior
 
 ## MÉTODO DE EXTENSÃO
 Método        | Descrição
