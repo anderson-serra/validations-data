@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Version>0.0.1.0</Version>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>0.1.0.0</Version>
     <Authors>Anderson Serra</Authors>
     <Company />
     <PackageProjectUrl></PackageProjectUrl>
@@ -11,6 +11,14 @@
     <RepositoryType>git</RepositoryType>
     <NeutralLanguage>pt-BR</NeutralLanguage>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Description>Validates personal data information such as cnpj, cpf, email ...</Description>
+    <PackageTags>formatação, validação, validação de dados, CPF, CNPJ</PackageTags>
+    <PackageReleaseNotes>## Version 0.1 
+- CNPJ Validation
+- CNPJ formatting 
+- CPF Validation
+- CPF formatting</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
 </Project>
